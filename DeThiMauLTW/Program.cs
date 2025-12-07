@@ -1,7 +1,15 @@
+using DeThiMauLTW.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// configure DBContext for SQL Server
+builder.Services.AddDbContext<QlhangHoaContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("QlHangHoaContext")));
 
 var app = builder.Build();
 

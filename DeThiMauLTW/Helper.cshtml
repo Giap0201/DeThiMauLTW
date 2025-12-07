@@ -1,40 +1,40 @@
-﻿@model IEnumerable<HangHoa>
+﻿@* @model IEnumerable<HangHoa>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/MyLayout.cshtml";
 }
 
 <div class="content">
-	<!-- Begin New Product -->
-	<div class="content_top">
-		<div class="heading">
-			<h3>NGUYỄN HỮU GIÁP</h3>
-		</div>
-		<div class="see">
-			<p><a href="#">See all Products</a></p>
-		</div>
-		<div class="clear"></div>
-	</div>
-	<div class="section group render">
-		@foreach(var item in Model)
-		{
-			<div class="grid_1_of_4 images_1_of_4">
-				<a href="preview.html"><img src="~/MyLayout/images/@item.Anh" alt="" /></a>
-				<h2>@item.TenHang </h2>
-				<div class="price-details">
-					<div class="price-number">
-						<p><span class="rupees">@item.Gia</span></p>
-					</div>
-					<div class="add-cart">
-						<h4><a href="preview.html">Add to Cart</a></h4>
-					</div>
-					<div class="clear"></div>
-				</div>
-			</div>
-		}
-	</div>
-	<!-- End New Product -->
-	
+    <!-- Begin New Product -->
+    <div class="content_top">
+        <div class="heading">
+            <h3>NGUYỄN HỮU GIÁP</h3>
+        </div>
+        <div class="see">
+            <p><a href="#">See all Products</a></p>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="section group render">
+        @foreach (var item in Model)
+        {
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="preview.html"><img src="~/MyLayout/images/@item.Anh" alt="" /></a>
+                <h2>@item.TenHang </h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p><span class="rupees">@item.Gia</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4><a href="preview.html">Add to Cart</a></h4>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        }
+    </div>
+    <!-- End New Product -->
+
 </div>
 @section Scripts {
     <script>
@@ -80,4 +80,23 @@
             }); // Đóng sự kiện click
         }); // Đóng document ready
     </script>
-}
+} *@
+@* 
+Scaffold-DbContext "Data Source=DESKTOP-0EECPLN\SQLEXPRESS;Initial Catalog=QLHangHoa;Integrated Security=True;Encrypt=True;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+// configure DBContext for SQL Server
+builder.Services.AddDbContext<QlhangHoaContext>
+    (options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("QlHangHoaContext"))); *@
+
+
+ @* [Required(ErrorMessage = "Ten hang khong duoc bo trong")]
+    public string TenHang { get; set; }
+
+    [Required(ErrorMessage = "Gia khong duoc bo trong")]
+    [Range(100, 5000, ErrorMessage = "Gia phai nam trong khoang tu 100 den 5000")]
+    public decimal? Gia { get; set; }
+
+    [Required(ErrorMessage = "Anh khong duoc bo trong")]
+    [RegularExpression(@"^.*\.(jpg|png|gif|tiff)$",
+    ErrorMessage = "File ảnh phải có đuôi .jpg, .png, .gif hoặc .tiff")] *@
